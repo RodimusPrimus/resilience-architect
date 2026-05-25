@@ -3,6 +3,8 @@
 
   "controls.lang": "EN",
   "controls.theme": "🌙",
+  "controls.install": "📲 Install",
+  "controls.installLabel": "Install app on your device",
   "controls.langToggle": "Switch language to Spanish",
   "controls.themeToggle": "Switch to light theme",
   "controls.proceed": "Get Started",

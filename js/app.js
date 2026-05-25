@@ -273,6 +273,66 @@ async function initApp() {
     workloadList.addEventListener('input', debouncedSave);
     workloadList.addEventListener('change', debouncedSave);
   }
+
+  // Wire PWA install button
+  setupInstallButton();
+}
+
+/**
+ * Sets up the PWA install button.
+ * Listens for the beforeinstallprompt event and shows a custom install button.
+ * On iOS (which doesn't fire beforeinstallprompt), shows the button with
+ * instructions to use the Share menu.
+ */
+function setupInstallButton() {
+  const installBtn = document.getElementById('install-btn');
+  if (!installBtn) return;
+
+  let deferredPrompt = null;
+
+  // Check if already installed (standalone mode)
+  if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+    // Already installed — keep button hidden
+    return;
+  }
+
+  // Listen for the beforeinstallprompt event (Chrome, Edge, Android)
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.classList.remove('hidden');
+  });
+
+  // On iOS Safari, beforeinstallprompt doesn't fire — show button with share instructions
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  if (isIOS) {
+    installBtn.classList.remove('hidden');
+  }
+
+  // Handle install button click
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      // Android/Chrome/Edge — trigger native install prompt
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        installBtn.classList.add('hidden');
+      }
+      deferredPrompt = null;
+    } else if (isIOS) {
+      // iOS — show instructions since we can't trigger install programmatically
+      alert(getLocale() === 'es'
+        ? 'Para instalar: toca el botón Compartir (□↑) y selecciona "Agregar a pantalla de inicio"'
+        : 'To install: tap the Share button (□↑) and select "Add to Home Screen"'
+      );
+    }
+  });
+
+  // Hide button after successful install
+  window.addEventListener('appinstalled', () => {
+    installBtn.classList.add('hidden');
+    deferredPrompt = null;
+  });
 }
 
 // Initialize the app — since this is a type="module" script, it runs after DOM is parsed

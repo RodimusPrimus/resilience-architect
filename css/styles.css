@@ -237,6 +237,19 @@ a:focus-visible {
   border-color: var(--color-accent-blue);
 }
 
+.install-btn {
+  background-color: var(--color-accent-emerald);
+  color: #ffffff;
+  border-color: var(--color-accent-emerald);
+  font-weight: 600;
+}
+
+.install-btn:hover,
+.install-btn:focus-visible {
+  background-color: var(--color-accent-emerald-hover);
+  border-color: var(--color-accent-emerald-hover);
+}
+
 /* --- Wizard Navigation --- */
 .wizard-nav {
   max-width: var(--max-width);
