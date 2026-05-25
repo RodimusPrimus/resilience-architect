@@ -1,0 +1,87 @@
+{
+  "app.title": "Resilience Architect: AWS DR Strategy Mapper",
+
+  "controls.lang": "EN",
+  "controls.theme": "🌙",
+  "controls.langToggle": "Switch language to Spanish",
+  "controls.themeToggle": "Switch to light theme",
+  "controls.proceed": "Get Started",
+  "controls.back": "Back",
+  "controls.analyze": "Analyze Workloads",
+  "controls.exportPdf": "Export PDF Report",
+  "controls.exportPdfLabel": "Export dashboard as PDF report",
+
+  "wizard.step1": "Executive Context",
+  "wizard.step2": "Workload Ingestion",
+  "wizard.step3": "Dashboard",
+
+  "context.heading": "Disaster Recovery as a Business Tradeoff",
+  "context.intro": "Every organization faces a fundamental tradeoff: how much are you willing to invest in infrastructure redundancy versus how much downtime and data loss can your business tolerate?",
+  "context.body": "This tool maps your workloads to AWS Disaster Recovery strategies based on your Recovery Time Objective (RTO) and Recovery Point Objective (RPO) targets, aligned with business criticality. The result is a clear, executive-ready view of your DR posture.",
+
+  "ingestion.heading": "Add Your Workloads",
+  "ingestion.intro": "Define each workload with its criticality tier and recovery targets. Add as many workloads as needed.",
+  "ingestion.workload": "Workload",
+  "ingestion.name": "Workload Name",
+  "ingestion.namePlaceholder": "e.g., Payment Gateway",
+  "ingestion.criticality": "Criticality Tier",
+  "ingestion.selectTier": "Select tier...",
+  "ingestion.tier1": "Tier 1 — Mission Critical",
+  "ingestion.tier2": "Tier 2 — Business Critical",
+  "ingestion.tier3": "Tier 3 — Non-Critical",
+  "ingestion.rto": "Max Tolerable Downtime (RTO)",
+  "ingestion.rtoPlaceholder": "e.g., 4",
+  "ingestion.rtoUnitLabel": "RTO time unit",
+  "ingestion.rpo": "Max Tolerable Data Loss (RPO)",
+  "ingestion.rpoPlaceholder": "e.g., 1",
+  "ingestion.rpoUnitLabel": "RPO time unit",
+  "ingestion.addWorkload": "+ Add Workload",
+  "ingestion.remove": "Remove",
+  "ingestion.removeWorkload": "Remove this workload",
+  "ingestion.error.minimum": "Please add at least one workload before proceeding.",
+
+  "units.seconds": "Seconds",
+  "units.minutes": "Minutes",
+  "units.hours": "Hours",
+  "units.days": "Days",
+
+  "dashboard.heading": "DR Strategy Dashboard",
+  "dashboard.pieTitle": "Strategy Distribution",
+  "dashboard.pieChartLabel": "Pie chart showing workload distribution across DR strategies",
+  "dashboard.quadrantTitle": "Cost vs. Criticality Matrix",
+  "dashboard.quadrantChartLabel": "Scatter chart plotting workloads by cost and criticality",
+  "dashboard.tradeoffTitle": "Strategy Tradeoffs",
+  "dashboard.tradeoff.pros": "Pros",
+  "dashboard.tradeoff.cons": "Cons",
+
+  "footer.attribution": "Designed by Allan Rodezno - Solutions Architect",
+  "footer.contact": "Let's Talk",
+
+  "strategy.backupRestore": "Backup & Restore",
+  "strategy.pilotLight": "Pilot Light",
+  "strategy.warmStandby": "Warm Standby",
+  "strategy.multiSiteActiveActive": "Multi-site Active/Active",
+
+  "strategy.br.pro1": "Lowest infrastructure cost",
+  "strategy.br.pro2": "Simplest to implement and manage",
+  "strategy.br.con1": "Highest potential data loss (hours to days)",
+  "strategy.br.con2": "Longest recovery time (hours to days)",
+
+  "strategy.pl.pro1": "Cost-effective with core services always running",
+  "strategy.pl.pro2": "Faster recovery than Backup & Restore",
+  "strategy.pl.con1": "Compute resources scaled down, require spin-up",
+  "strategy.pl.con2": "Moderate RTO (tens of minutes to hours)",
+
+  "strategy.ws.pro1": "Minutes-level recovery time",
+  "strategy.ws.pro2": "Fully functional environment always running",
+  "strategy.ws.con1": "Higher ongoing infrastructure cost",
+  "strategy.ws.con2": "Scaled-down environment may need scaling on failover",
+
+  "strategy.ms.pro1": "Near-zero RTO and RPO",
+  "strategy.ms.pro2": "No failover delay — traffic routes automatically",
+  "strategy.ms.con1": "Most expensive — full redundant infrastructure",
+  "strategy.ms.con2": "Complex licensing, data replication, and operational overhead",
+
+  "export.subtitle": "Disaster Recovery Strategy Report",
+  "export.unavailable": "PDF export requires html2pdf.js library. Please check your internet connection."
+}

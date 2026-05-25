@@ -1,0 +1,87 @@
+{
+  "app.title": "Resilience Architect: Mapeador de Estrategias DR en AWS",
+
+  "controls.lang": "ES",
+  "controls.theme": "🌙",
+  "controls.langToggle": "Cambiar idioma a inglés",
+  "controls.themeToggle": "Cambiar a tema claro",
+  "controls.proceed": "Comenzar",
+  "controls.back": "Atrás",
+  "controls.analyze": "Analizar Cargas de Trabajo",
+  "controls.exportPdf": "Exportar Reporte PDF",
+  "controls.exportPdfLabel": "Exportar panel como reporte PDF",
+
+  "wizard.step1": "Contexto Ejecutivo",
+  "wizard.step2": "Ingesta de Cargas",
+  "wizard.step3": "Panel de Control",
+
+  "context.heading": "La Recuperación ante Desastres es un Balance de Negocio",
+  "context.intro": "Toda organización enfrenta un balance fundamental: ¿cuánto está dispuesto a invertir en redundancia de infraestructura versus cuánto tiempo de inactividad y pérdida de datos puede tolerar su negocio?",
+  "context.body": "Esta herramienta mapea sus cargas de trabajo a estrategias de Recuperación ante Desastres de AWS basándose en sus objetivos de Tiempo de Recuperación (RTO) y Punto de Recuperación (RPO), alineados con la criticidad del negocio. El resultado es una vista clara y ejecutiva de su postura de DR.",
+
+  "ingestion.heading": "Defina Sus Cargas de Trabajo",
+  "ingestion.intro": "Defina cada carga de trabajo con su nivel de criticidad y objetivos de recuperación. Agregue tantas como necesite.",
+  "ingestion.workload": "Carga de Trabajo",
+  "ingestion.name": "Nombre de la Carga de Trabajo",
+  "ingestion.namePlaceholder": "ej., Pasarela de Pagos",
+  "ingestion.criticality": "Nivel de Criticidad",
+  "ingestion.selectTier": "Seleccionar nivel...",
+  "ingestion.tier1": "Nivel 1 — Misión Crítica",
+  "ingestion.tier2": "Nivel 2 — Crítico para el Negocio",
+  "ingestion.tier3": "Nivel 3 — No Crítico",
+  "ingestion.rto": "Tiempo Máximo de Inactividad Tolerable (RTO)",
+  "ingestion.rtoPlaceholder": "ej., 4",
+  "ingestion.rtoUnitLabel": "Unidad de tiempo RTO",
+  "ingestion.rpo": "Pérdida Máxima de Datos Tolerable (RPO)",
+  "ingestion.rpoPlaceholder": "ej., 1",
+  "ingestion.rpoUnitLabel": "Unidad de tiempo RPO",
+  "ingestion.addWorkload": "+ Agregar Carga de Trabajo",
+  "ingestion.remove": "Eliminar",
+  "ingestion.removeWorkload": "Eliminar esta carga de trabajo",
+  "ingestion.error.minimum": "Agregue al menos una carga de trabajo antes de continuar.",
+
+  "units.seconds": "Segundos",
+  "units.minutes": "Minutos",
+  "units.hours": "Horas",
+  "units.days": "Días",
+
+  "dashboard.heading": "Panel de Estrategia DR",
+  "dashboard.pieTitle": "Distribución de Estrategias",
+  "dashboard.pieChartLabel": "Gráfico circular mostrando distribución de cargas por estrategia DR",
+  "dashboard.quadrantTitle": "Matriz de Costo vs. Criticidad",
+  "dashboard.quadrantChartLabel": "Gráfico de dispersión de cargas por costo y criticidad",
+  "dashboard.tradeoffTitle": "Análisis de Compensaciones",
+  "dashboard.tradeoff.pros": "Ventajas",
+  "dashboard.tradeoff.cons": "Desventajas",
+
+  "footer.attribution": "Diseñado por Allan Rodezno - Arquitecto de Soluciones",
+  "footer.contact": "Hablemos",
+
+  "strategy.backupRestore": "Respaldo y Restauración",
+  "strategy.pilotLight": "Pilot Light",
+  "strategy.warmStandby": "Warm Standby",
+  "strategy.multiSiteActiveActive": "Multi-sitio Activo/Activo",
+
+  "strategy.br.pro1": "Menor costo de infraestructura",
+  "strategy.br.pro2": "Más simple de implementar y administrar",
+  "strategy.br.con1": "Mayor pérdida potencial de datos (horas a días)",
+  "strategy.br.con2": "Mayor tiempo de recuperación (horas a días)",
+
+  "strategy.pl.pro1": "Costo-efectivo con servicios principales siempre activos",
+  "strategy.pl.pro2": "Recuperación más rápida que Respaldo y Restauración",
+  "strategy.pl.con1": "Recursos de cómputo reducidos, requieren escalamiento",
+  "strategy.pl.con2": "RTO moderado (decenas de minutos a horas)",
+
+  "strategy.ws.pro1": "Tiempo de recuperación en minutos",
+  "strategy.ws.pro2": "Entorno completamente funcional siempre activo",
+  "strategy.ws.con1": "Mayor costo continuo de infraestructura",
+  "strategy.ws.con2": "Entorno reducido puede necesitar escalamiento en failover",
+
+  "strategy.ms.pro1": "RTO y RPO cercanos a cero",
+  "strategy.ms.pro2": "Sin demora de failover — el tráfico se enruta automáticamente",
+  "strategy.ms.con1": "Más costoso — infraestructura redundante completa",
+  "strategy.ms.con2": "Licenciamiento complejo, replicación de datos y sobrecarga operativa",
+
+  "export.subtitle": "Reporte de Estrategia de Recuperación ante Desastres",
+  "export.unavailable": "La exportación PDF requiere la librería html2pdf.js. Por favor verifique su conexión a internet."
+}

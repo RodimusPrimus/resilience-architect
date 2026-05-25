@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Resilience Architect: AWS DR Strategy Mapper — Map workloads to AWS Disaster Recovery strategies based on RTO/RPO inputs and business criticality.">
+  <title>Resilience Architect: AWS DR Strategy Mapper</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1a1a2e">
+  <link rel="icon" href="icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+  <header class="app-header" role="banner">
+    <div class="header-content">
+      <h1 class="app-title" data-i18n="app.title">Resilience Architect</h1>
+      <nav class="header-controls" aria-label="App controls">
+        <button
+          type="button"
+          id="lang-toggle"
+          class="control-btn"
+          aria-label="Switch language to Spanish"
+          data-i18n-aria="controls.langToggle"
+        >
+          <span data-i18n="controls.lang">EN</span>
+        </button>
+        <button
+          type="button"
+          id="theme-toggle"
+          class="control-btn"
+          aria-label="Switch to light theme"
+          data-i18n-aria="controls.themeToggle"
+        >
+          <span data-i18n="controls.theme">🌙</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="app-main" role="main">
+    <!-- Wizard Step Indicators -->
+    <nav class="wizard-nav" aria-label="Wizard progress">
+      <ol class="wizard-steps-indicator">
+        <li class="step-indicator active" data-step="context">
+          <span class="step-number" aria-hidden="true">1</span>
+          <span class="step-label" data-i18n="wizard.step1">Executive Context</span>
+        </li>
+        <li class="step-indicator" data-step="ingestion">
+          <span class="step-number" aria-hidden="true">2</span>
+          <span class="step-label" data-i18n="wizard.step2">Workload Ingestion</span>
+        </li>
+        <li class="step-indicator" data-step="dashboard">
+          <span class="step-number" aria-hidden="true">3</span>
+          <span class="step-label" data-i18n="wizard.step3">Dashboard</span>
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Step 1: Executive Context -->
+    <section
+      id="step-context"
+      class="wizard-step"
+      role="region"
+      aria-labelledby="context-heading"
+    >
+      <div class="step-content">
+        <h2 id="context-heading" data-i18n="context.heading">Disaster Recovery as a Business Tradeoff</h2>
+        <p class="context-intro" data-i18n="context.intro">
+          Every organization faces a fundamental tradeoff: how much are you willing to invest in infrastructure redundancy versus how much downtime and data loss can your business tolerate?
+        </p>
+        <p class="context-body" data-i18n="context.body">
+          This tool maps your workloads to AWS Disaster Recovery strategies based on your Recovery Time Objective (RTO) and Recovery Point Objective (RPO) targets, aligned with business criticality. The result is a clear, executive-ready view of your DR posture.
+        </p>
+        <div class="step-actions">
+          <button
+            type="button"
+            id="btn-context-proceed"
+            class="btn btn-primary"
+            data-i18n="controls.proceed"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 2: Workload Ingestion -->
+    <section
+      id="step-ingestion"
+      class="wizard-step hidden"
+      role="region"
+      aria-labelledby="ingestion-heading"
+    >
+      <div class="step-content">
+        <h2 id="ingestion-heading" data-i18n="ingestion.heading">Add Your Workloads</h2>
+        <p class="ingestion-intro" data-i18n="ingestion.intro">
+          Define each workload with its criticality tier and recovery targets. Add as many workloads as needed.
+        </p>
+
+        <div id="workload-list" class="workload-list" role="list" aria-label="Workload entries">
+          <!-- Workload entry template (first entry) -->
+          <fieldset class="workload-entry" role="listitem" data-workload-id="1">
+            <legend class="workload-legend">
+              <span data-i18n="ingestion.workload">Workload</span> <span class="workload-number">1</span>
+            </legend>
+
+            <div class="form-group">
+              <label for="workload-name-1" data-i18n="ingestion.name">Workload Name</label>
+              <input
+                type="text"
+                id="workload-name-1"
+                class="form-control workload-name"
+                maxlength="100"
+                required
+                aria-required="true"
+                placeholder="e.g., Payment Gateway"
+                data-i18n-placeholder="ingestion.namePlaceholder"
+              >
+              <span class="error-message" aria-live="polite"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="workload-criticality-1" data-i18n="ingestion.criticality">Criticality Tier</label>
+              <select
+                id="workload-criticality-1"
+                class="form-control workload-criticality"
+                required
+                aria-required="true"
+              >
+                <option value="" disabled selected data-i18n="ingestion.selectTier">Select tier...</option>
+                <option value="tier1" data-i18n="ingestion.tier1">Tier 1 — Mission Critical</option>
+                <option value="tier2" data-i18n="ingestion.tier2">Tier 2 — Business Critical</option>
+                <option value="tier3" data-i18n="ingestion.tier3">Tier 3 — Non-Critical</option>
+              </select>
+              <span class="error-message" aria-live="polite"></span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group form-group-inline">
+                <label for="workload-rto-value-1" data-i18n="ingestion.rto">Max Tolerable Downtime (RTO)</label>
+                <div class="input-with-unit">
+                  <input
+                    type="number"
+                    id="workload-rto-value-1"
+                    class="form-control workload-rto-value"
+                    min="0.01"
+                    step="any"
+                    required
+                    aria-required="true"
+                    placeholder="e.g., 4"
+                    data-i18n-placeholder="ingestion.rtoPlaceholder"
+                  >
+                  <select
+                    id="workload-rto-unit-1"
+                    class="form-control workload-rto-unit"
+                    aria-label="RTO time unit"
+                    data-i18n-aria="ingestion.rtoUnitLabel"
+                  >
+                    <option value="seconds" data-i18n="units.seconds">Seconds</option>
+                    <option value="minutes" data-i18n="units.minutes">Minutes</option>
+                    <option value="hours" selected data-i18n="units.hours">Hours</option>
+                    <option value="days" data-i18n="units.days">Days</option>
+                  </select>
+                </div>
+                <span class="error-message" aria-live="polite"></span>
+              </div>
+
+              <div class="form-group form-group-inline">
+                <label for="workload-rpo-value-1" data-i18n="ingestion.rpo">Max Tolerable Data Loss (RPO)</label>
+                <div class="input-with-unit">
+                  <input
+                    type="number"
+                    id="workload-rpo-value-1"
+                    class="form-control workload-rpo-value"
+                    min="0.01"
+                    step="any"
+                    required
+                    aria-required="true"
+                    placeholder="e.g., 1"
+                    data-i18n-placeholder="ingestion.rpoPlaceholder"
+                  >
+                  <select
+                    id="workload-rpo-unit-1"
+                    class="form-control workload-rpo-unit"
+                    aria-label="RPO time unit"
+                    data-i18n-aria="ingestion.rpoUnitLabel"
+                  >
+                    <option value="seconds" data-i18n="units.seconds">Seconds</option>
+                    <option value="minutes" data-i18n="units.minutes">Minutes</option>
+                    <option value="hours" selected data-i18n="units.hours">Hours</option>
+                    <option value="days" data-i18n="units.days">Days</option>
+                  </select>
+                </div>
+                <span class="error-message" aria-live="polite"></span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-danger btn-remove-workload"
+              aria-label="Remove workload 1"
+              data-i18n-aria="ingestion.removeWorkload"
+              data-i18n="ingestion.remove"
+            >
+              Remove
+            </button>
+          </fieldset>
+        </div>
+
+        <div class="ingestion-actions">
+          <button
+            type="button"
+            id="btn-add-workload"
+            class="btn btn-secondary"
+            data-i18n="ingestion.addWorkload"
+          >
+            + Add Workload
+          </button>
+        </div>
+
+        <div id="ingestion-error" class="form-error hidden" role="alert" aria-live="assertive">
+          <span data-i18n="ingestion.error.minimum">Please add at least one workload before proceeding.</span>
+        </div>
+
+        <div class="step-actions">
+          <button
+            type="button"
+            id="btn-ingestion-back"
+            class="btn btn-outline"
+            data-i18n="controls.back"
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            id="btn-ingestion-proceed"
+            class="btn btn-primary"
+            data-i18n="controls.analyze"
+          >
+            Analyze Workloads
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 3: Dashboard -->
+    <section
+      id="step-dashboard"
+      class="wizard-step hidden"
+      role="region"
+      aria-labelledby="dashboard-heading"
+    >
+      <div class="step-content">
+        <h2 id="dashboard-heading" data-i18n="dashboard.heading">DR Strategy Dashboard</h2>
+
+        <div class="dashboard-grid">
+          <!-- Pie Chart: Strategy Distribution -->
+          <div class="dashboard-card" role="figure" aria-labelledby="pie-chart-title">
+            <h3 id="pie-chart-title" data-i18n="dashboard.pieTitle">Strategy Distribution</h3>
+            <div id="pie-chart-container" class="chart-container">
+              <canvas id="pie-chart" aria-label="Pie chart showing workload distribution across DR strategies" data-i18n-aria="dashboard.pieChartLabel"></canvas>
+            </div>
+            <!-- Fallback table when Chart.js unavailable -->
+            <div id="pie-chart-fallback" class="chart-fallback hidden" role="table" aria-label="Strategy distribution table">
+            </div>
+          </div>
+
+          <!-- Quadrant Chart: Cost vs Criticality -->
+          <div class="dashboard-card" role="figure" aria-labelledby="quadrant-chart-title">
+            <h3 id="quadrant-chart-title" data-i18n="dashboard.quadrantTitle">Cost vs. Criticality Matrix</h3>
+            <div id="quadrant-chart-container" class="chart-container">
+              <canvas id="quadrant-chart" aria-label="Scatter chart plotting workloads by cost and criticality" data-i18n-aria="dashboard.quadrantChartLabel"></canvas>
+            </div>
+            <!-- Fallback table when Chart.js unavailable -->
+            <div id="quadrant-chart-fallback" class="chart-fallback hidden" role="table" aria-label="Cost vs criticality table">
+            </div>
+          </div>
+
+          <!-- Tradeoff Cards -->
+          <div class="dashboard-card dashboard-card-full" aria-labelledby="tradeoff-title">
+            <h3 id="tradeoff-title" data-i18n="dashboard.tradeoffTitle">Strategy Tradeoffs</h3>
+            <div id="tradeoff-cards" class="tradeoff-cards" role="list" aria-label="Strategy tradeoff analysis">
+            </div>
+          </div>
+        </div>
+
+        <div class="step-actions">
+          <button
+            type="button"
+            id="btn-dashboard-back"
+            class="btn btn-outline"
+            data-i18n="controls.back"
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            id="btn-export-pdf"
+            class="btn btn-primary"
+            aria-label="Export dashboard as PDF report"
+            data-i18n="controls.exportPdf"
+            data-i18n-aria="controls.exportPdfLabel"
+          >
+            Export PDF Report
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer" role="contentinfo">
+    <div class="footer-content">
+      <p class="footer-attribution" data-i18n="footer.attribution">
+        Designed by Allan Rodezno - Solutions Architect
+      </p>
+      <a
+        href="https://arodezno.com/contact/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="footer-link"
+        data-i18n="footer.contact"
+      >
+        Let's Talk
+      </a>
+    </div>
+  </footer>
+
+  <!-- CDN Libraries -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"
+    crossorigin="anonymous"
+    defer
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"
+    crossorigin="anonymous"
+    defer
+  ></script>
+
+  <!-- App Entry Point -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

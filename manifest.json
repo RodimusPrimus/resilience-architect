@@ -1,0 +1,24 @@
+{
+  "name": "Resilience Architect: AWS DR Strategy Mapper",
+  "short_name": "Resilience Architect",
+  "description": "Map workloads to AWS Disaster Recovery strategies based on RTO/RPO inputs and business criticality.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
